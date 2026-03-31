@@ -1,6 +1,7 @@
+// Array 
 const dataPasien = [];
 
-
+// 
 const form = document.getElementById("formPasien");
 const list = document.getElementById("listPasien");
 const template = document.getElementById("templatePasien");
@@ -10,17 +11,17 @@ const terakhir = document.getElementById("nomorTerakhir");
 const menu = document.getElementById("menuToggle");
 const nav = document.getElementById("navLinks");
 
-// Format tanggal 
+// Object Date
 const formatTanggal = t => new Date(t).toLocaleDateString("id-ID",{day:"2-digit",month:"long",year:"numeric"});
 const formatJam = w => w.toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
 
-// buat qr jangan di ubah
+// Function
 const buatQr = p => {
   const isiQr = `${p.idPasien} | ${p.nama} | ${p.nomorAntrian} | ${p.rumahSakit} | ${p.dokter} | ${p.tanggalBerobat}`;
   return "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=" + encodeURIComponent(isiQr);
 };
 
-// CARDDD WOY
+// CARDDDD
 function buatCard(p,i){
   const card = template.content.cloneNode(true);
 
@@ -31,12 +32,12 @@ function buatCard(p,i){
     ".rs-pasien":p.rumahSakit,
     ".dokter-pasien":p.dokter,
     ".tanggal-pasien":formatTanggal(p.tanggalBerobat),
-    ".waktu-pasien":formatJam(new Date(p.waktuDaftar))
+    ".waktu-pasien":formatJam(new Date(p.waktuDaftar)) // Object Date
   };
 
   for(const k in isi) card.querySelector(k).textContent = isi[k];
 
-  // Menambahkan QR pasien
+  // QR
   card.querySelector(".gambar-qr").src = buatQr(p);
   card.querySelector(".tombol-edit").dataset.index = i;
   card.querySelector(".tombol-hapus").dataset.index = i;
@@ -44,43 +45,41 @@ function buatCard(p,i){
   return card;
 }
 
-// DATA
+// DATAAAA
 function tampilkanData(){
   list.innerHTML="";
 
   dataPasien.forEach((p,i)=>list.appendChild(buatCard(p,i)));
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toISOString().split("T")[0]; // Object Date
 
   total.textContent = dataPasien.length;
   hariIni.textContent = dataPasien.filter(p=>p.tanggalBerobat===today).length;
   terakhir.textContent = dataPasien.at(-1)?.nomorAntrian || "-";
 }
 
-
-
+// Event DOM 
 form.addEventListener("submit",e=>{
   e.preventDefault();
 
-  // PASIENN BARUUUUWWW
+  // Object pasien 
   const pasien = {
-    nama: nama.value.trim().toUpperCase(),
+    nama: nama.value.trim().toUpperCase(), // Object String
     rumahSakit: rs.value,
     dokter: dokter.value,
     tanggalBerobat: tanggal.value,
-    idPasien:"MDC-"+Math.floor(Math.random()*90000+10000),
-    nomorAntrian:"A-"+String(dataPasien.length+1).padStart(3,"0"),
-    waktuDaftar:new Date()
+    idPasien:"MDC-"+Math.floor(Math.random()*90000+10000), // Object Math
+    nomorAntrian:"A-"+String(dataPasien.length+1).padStart(3,"0"), // Object String
+    waktuDaftar:new Date() // Object Date
   };
 
   dataPasien.push(pasien);
   tampilkanData();
-  alert("Pendaftaran berhasil! Nomor antrian: "+pasien.nomorAntrian);
+  alert("Pendaftaran berhasil! Nomor antrian: "+pasien.nomorAntrian); //alert()
   form.reset();
 });
 
-
-// Menangani tombol edit dan hapus pada card
+// Event DOM 
 list.addEventListener("click",e=>{
   const btn = e.target.closest("button");
   if(!btn) return;
@@ -90,7 +89,7 @@ list.addEventListener("click",e=>{
 
   const p = dataPasien[i];
 
-  // Edit data pasien
+  // prompt() EDITTT DATAAAAAAAAAAAA
   if(btn.classList.contains("tombol-edit")){
     const namaBaru = prompt("Edit nama pasien:",p.nama);
     const rsBaru = namaBaru===null?null:prompt("Edit rumah sakit / klinik:",p.rumahSakit);
@@ -101,7 +100,7 @@ list.addEventListener("click",e=>{
     if(!namaBaru.trim()||!rsBaru.trim()||!dokterBaru.trim()||!tanggalBaru.trim()) return alert("Semua data edit harus diisi.");
 
     Object.assign(p,{
-      nama:namaBaru.trim().toUpperCase(),
+      nama:namaBaru.trim().toUpperCase(), // Object String
       rumahSakit:rsBaru.trim(),
       dokter:dokterBaru.trim(),
       tanggalBerobat:tanggalBaru.trim()
@@ -110,24 +109,21 @@ list.addEventListener("click",e=>{
     tampilkanData();
   }
 
-
-  // Hapus data pasien
+  //confirm() sebelum hapus
   if(btn.classList.contains("tombol-hapus")){
-    if(!confirm("Yakin hapus data pasien ini?")) return;
+    if(!confirm("Yakin hapus data pasien ini?")) return; // Kotak Dialog confirm()
 
     dataPasien.splice(i,1);
 
-
-    // Nomor antrian disusun ulang
+    // RISETTTT ANTRIANN
     dataPasien.forEach((p,i)=>p.nomorAntrian="A-"+String(i+1).padStart(3,"0"));
     tampilkanData();
   }
 });
 
-// Menu navbar untuk tampilan mobile
+// HAMBURGERRR
 menu.onclick=()=>nav.classList.toggle("terbuka");
 nav.onclick=e=>{if(e.target.tagName==="A")nav.classList.remove("terbuka")};
 
-// Tampilkan data saat halaman pertama dibuka
+// NAMPIL DATA PAS BARU DI BUKA
 tampilkanData();
-
