@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedCare - Hospital Queue System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wadah-situs">
+<header class="bagian-hero" id="home">
+<nav class="navigasi-atas">
+
+  <a href="#home" class="merek-logo">
+    <span class="wadah-foto-logo">
+      <img src="img/logomedcare.png" alt="Logo MedCare" class="foto-logo">
+    </span>
+    <div>
+      <strong>MedCare</strong>
+      <span>Hospital Queue System</span>
+    </div>
+  </a>
+
+  <button class="tombol-menu" id="menuToggle" aria-label="Buka navigasi">
+    <span></span> 
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="menu-nav" id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#pendaftaran">Pendaftaran</a>
+    <a href="#antrian">Daftar Antrian</a>
+  </div>
+</nav>
+
+<div class="isi-hero">
+<div class="visual-hero">
+  <div class="sorot-dokter">
+ <div class="badge-dokter profil-dokter">
+  <i class="fa-solid fa-user-doctor"></i>
+  <div>
+      <strong>Dr. Raffasya Javas</strong>
+      <p>Spesialis Bedah</p>
+  </div>
+</div>
+
+  <div class="badge-dokter dokter-online">
+    <div class="tumpuk-avatar">
+    <span><i class="fa-solid fa-user-doctor"></i></span>
+    </div>
+        <strong>127+ Dokter Spesialis</strong>
+  </div>
+    <div class="bingkai-foto-hero">
+  <img src="img/Gemini_Generated_Image_yskzsgyskzsgyskz.png" alt="Dokter" class="foto-hero">
+      </div>
+    </div>
+  </div>
+
+  <div class="teks-hero">
+    <span class="label-kecil">Professional Medical Service</span>
+    <h1>Don't Let Your Health Take a Backseat!</h1>
+    <p>Daftarkan kunjungan pasien dengan cepat, pilih dokter terbaik, dan pantau nomor antrian secara real-time dalam satu dashboard rumah sakit yang bersih, aman, dan profesional.</p>
+    <div class="aksi-hero">
+      <a href="#pendaftaran" class="tombol tombol-primer">Daftar Sekarang</a>
+      <a href="#antrian" class="tombol tombol-sekunder">Lihat Antrian</a>
+    </div>
+    <div class="kartu-metrik">
+      <div class="item-metrik">
+        <strong>24/7</strong>
+        <span>Layanan Pendaftaran</span>
+      </div>
+      <div class="item-metrik">
+        <strong>127+</strong>
+        <span>Rumah Sakit & Klinik Partner</span>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+<main>
+<section class="bagian halaman-formulir" id="pendaftaran">
+  <div class="judul-bagian judul-kiri">
+    <span class="label-kecil">Registration</span>
+    <h2>Pendaftaran Pasien</h2>
+    <p>Silakan isi form berikut untuk melakukan pendaftaran pasien baru.</p>
+  </div>
+  <div class="susunan-formulir">
+    <div class="panel-formulir panel-formulir-penuh">
+
+<form id="formPasien" class="form-pasien">
+<div class="kotak-input">
+<label class="grup-input">
+
+<span class="teks-label">Nama Lengkap Pasien</span>
+<div class="bingkai-input">
+  <i class="fa-solid fa-bed"></i>
+  <input type="text" id="nama" placeholder="Masukkan nama pasien" required>
+</div>
+</label>
+  <label class="grup-input">
+    <span class="teks-label">Pilih Rumah Sakit / Klinik</span>
+    <div class="bingkai-input">
+      <i class="fa-solid fa-hospital"></i>
+      <select id="rs" required>
+
+<option value="">Pilih Layanan Kesehatan</option>
+<option>RSUD Ciawi</option>
+<option>RS Siloam Kebun Raya</option>
+<option>RS Hermina Bogor</option>
+<option>Klinik Medika 1</option>
+<option>RS Juliana</option>
+</select>
+
+<!--DOKTERRR NYAAAA (JGN DI UBAH)-->
+  </div>
+</label>
+<label class="grup-input">
+  <span class="teks-label">Pilih Dokter</span>
+  <div class="bingkai-input">
+    <i class="fa-solid fa-user-doctor"></i>
+    <select id="dokter" required>
+      <option value="">Pilih dokter</option>
+      <option>Dr. Jalaludin, Sp.PD</option>
+      <option>Dr. Ir. Raffasya Javas Niscala W, Sp.A</option>
+      <option>Dr. Najib Hakim, Sp.THT</option>
+      <option>Dr. Aulia Amanada Sari, Sp.OG</option>
+    </select>
+ </div>
+  </label>
+
+  <label class="grup-input">
+    <span class="teks-label">Tanggal Berobat</span>
+    <div class="bingkai-input">
+      <i class="fa-solid fa-calendar"></i>
+      <input type="date" id="tanggal" required>
+    </div>
+  </label>
+</div>
+<button type="submit" class="tombol tombol-primer tombol-penuh">Daftar Sekarang</button>
+</form>
+
+<div class="kartu-info">
+  <div class="kepala-info">
+    <span class="pil-info">Informasi Penting</span>
+    <h3>Perhatikan Sebelum Datang</h3>
+  </div>
+
+  <ul class="daftar-info">
+    <li>Pastikan data benar</li>
+    <li>Nomor antrian otomatis</li>
+    <li>Datang 15 menit sebelum jadwal</li>
+    <li>Bawa identitas / BPJS</li>
+  </ul>
+
+</div>
+</div>
+</div>
+</section>
+
+
+<!--ANTRIANNNN (JGN DI UBAH )-->
+<section class="bagian halaman-antrian" id="antrian">
+  <div class="judul-bagian judul-kiri">
+    <span class="label-kecil">Queue Dashboard</span>
+    <h2>Daftar Antrian Pasien</h2>
+    <p>Pantau seluruh pendaftaran pasien di rumah sakit tertentu</p>
+  </div>
+
+
+  <div class="susunan-statistik">
+    <article class="kartu-statistik">
+      <span>Total Pasien</span>
+      <strong id="totalPasien">0</strong>
+      <p>Data pendaftaran tersimpan</p>
+    </article>
+    <article class="kartu-statistik">
+      <span>Antrian Hari Ini</span>
+      <strong id="antrianHariIni">0</strong>
+      <p>Pasien dengan tanggal hari ini</p>
+    </article>
+    <article class="kartu-statistik">
+      <span>Nomor Terakhir</span>
+      <strong id="nomorTerakhir">-</strong>
+      <p>Antrian paling akhir dibuat</p>
+    </article>
+  </div>
+
+  <!-- card antrian ( cari referensi lain)-->
+  <div id="listPasien" class="wadah-antrian"></div>
+
+  <template id="templatePasien">
+    <article class="kartu-pasien">
+      <div class="kepala-kartu-pasien">
+        <div>
+
+
+    <span class="nomor-antrian"></span>
+    <p class="nama-pasien"></p>
+  </div>
+  <span class="kode-pasien"></span>
+</div>
+
+
+<div class="isi-kartu-pasien">
+  <div class="info-kiri">
+    <div class="baris-info-pasien">
+      <span class="ikon-info-pasien"><i class="fa-regular fa-hospital"></i></span>
+      <p class="rs-pasien"></p>
+
+
+    </div>
+    <div class="baris-info-pasien">
+      <span class="ikon-info-pasien ikon-hijau"><i class="fa-solid fa-user-doctor"></i></span>
+      <p class="dokter-pasien"></p>
+    </div>
+
+
+    <div class="baris-info-pasien">
+      <span class="ikon-info-pasien"><i class="fa-regular fa-calendar"></i></span>
+      <p class="tanggal-pasien nilai-tebal"></p>
+    </div>
+
+    <div class="baris-info-pasien">
+      <span class="ikon-info-pasien"><i class="fa-regular fa-clock"></i></span>
+      <p class="waktu-pasien nilai-tebal"></p>
+    </div>
+  </div>
+
+<!-- QR CODE ( MASI EROR )-->
+        <div class="wadah-qr">
+          <img src="" alt="QR Pasien" class="gambar-qr">
+        </div>
+      </div>
+
+
+      <div class="aksi-kartu">
+        <button class="tombol-aksi tombol-edit">Edit</button>
+        <button class="tombol-aksi tombol-hapus">Hapus</button>
+      </div>
+    </article>
+  </template>
+</section>
+</main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

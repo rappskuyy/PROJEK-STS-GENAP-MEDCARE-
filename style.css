@@ -1,0 +1,393 @@
+* {
+  --teks: #183b56;
+  --teks-lembut: #5b7389;
+  --putih: #fff;
+  --biru: #2e86de;
+  --biru-tua: #1e5fa8;
+  --hijau: #2bb673;
+  --hijau-tua: #198f58;
+  --garis: rgba(24, 59, 86, 0.12);
+  --bayangan: 0 18px 40px rgba(31, 89, 143, 0.12);
+  --radius: 30px;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: var(--teks);
+  background: linear-gradient(180deg, #f7fcff 0%, #eef8fb 45%, #f9feff 100%);
+}
+
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; }
+
+.wadah-situs { width: min(1200px, calc(100% - 32px)); margin: 0 auto; }
+.bagian-hero, .bagian { padding: 28px 0 48px; }
+
+.navigasi-atas,
+.item-metrik,
+.panel-formulir,
+.kartu-info,
+.kartu-statistik,
+.kartu-pasien,
+.badge-dokter {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: var(--bayangan);
+}
+
+.navigasi-atas,
+.merek-logo,
+.badge-dokter,
+.baris-info-pasien,
+.kepala-kartu-pasien,
+.aksi-hero,
+.kartu-metrik,
+.aksi-kartu {
+  display: flex;
+  align-items: center;
+}
+
+.navigasi-atas {
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 22px;
+  border-radius: 999px;
+}
+
+.merek-logo { gap: 14px; }
+.merek-logo strong, .merek-logo span { display: block; }
+.merek-logo span { font-size: 0.75rem; color: var(--teks-lembut); }
+
+.wadah-foto-logo {
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.foto-logo,
+.foto-hero {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.menu-nav { display: flex; gap: 30px; }
+
+.tombol-menu {
+  display: none;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.tombol-menu span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 5px auto;
+  background: var(--teks);
+}
+
+.isi-hero,
+.susunan-statistik,
+.wadah-antrian,
+.kotak-input {
+  display: grid;
+  gap: 20px;
+}
+
+.isi-hero {
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.sorot-dokter,
+.bingkai-foto-hero,
+.foto-hero { min-height: 520px; border-radius: 40px; }
+
+.sorot-dokter {
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-dokter {
+  position: absolute;
+  z-index: 2;
+  gap: 14px;
+  padding: 16px 18px;
+}
+
+.profil-dokter {
+  top: 28px;
+  right: 28px;
+  width: 240px;
+  padding: 14px 16px;
+  border-radius: 20px;
+}
+
+.profil-dokter strong { display: block; margin-bottom: 4px; font-size: 0.95rem; color: #17324d; }
+.profil-dokter p { margin: 0; font-size: 0.82rem; line-height: 1.5; color: var(--teks-lembut); }
+
+.dokter-online { left: 26px; bottom: 26px; border-radius: 999px; }
+
+.lingkar-ikon,
+.tumpuk-avatar span {
+  display: grid;
+  place-items: center;
+  color: var(--putih);
+}
+
+.lingkar-ikon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--hijau), var(--biru));
+}
+
+.tumpuk-avatar { display: flex; margin-right: 6px; }
+
+.tumpuk-avatar span {
+  width: 32px;
+  height: 32px;
+  margin-right: -8px;
+  border: 3px solid var(--putih);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8fd3ff, #70dcb1);
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.label-kecil {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--hijau-tua);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.label-kecil::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--hijau), var(--biru));
+}
+
+.teks-hero h1, .judul-bagian h2 { margin: 0; letter-spacing: -0.04em; }
+.teks-hero h1 { font-size: clamp(2.8rem, 5vw, 4.8rem); line-height: 1.04; }
+.teks-hero p, .judul-bagian p, .daftar-info li, .kartu-statistik p { color: var(--teks-lembut); line-height: 1.75; }
+
+.aksi-hero, .kartu-metrik, .aksi-kartu { flex-wrap: wrap; gap: 14px; }
+.aksi-hero { margin: 30px 0; }
+
+.tombol,
+.tombol-aksi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tombol {
+  min-height: 56px;
+  padding: 0 26px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.tombol-primer { color: var(--putih); background: linear-gradient(135deg, var(--biru), var(--hijau)); }
+.tombol-primer:hover { transform: translateY(-2px); box-shadow: 0 14px 24px rgba(46, 134, 222, 0.28); opacity: 0.95; }
+.tombol-sekunder { color: var(--biru-tua); background: rgba(255, 255, 255, 0.95); }
+.tombol-penuh { width: 100%; }
+
+.item-metrik,
+.panel-formulir,
+.kartu-info,
+.kartu-pasien { border-radius: var(--radius); }
+
+.item-metrik { min-width: 180px; padding: 16px 18px; }
+.item-metrik strong,
+.kartu-statistik strong { display: block; }
+.item-metrik strong { font-size: 1.35rem; }
+
+.judul-bagian { max-width: 640px; margin-bottom: 32px; }
+
+.panel-formulir-penuh {
+  width: min(100%, 980px);
+  margin: 0 auto;
+  padding: 34px;
+}
+
+.form-pasien,
+.grup-input,
+.info-kiri { display: grid; gap: 14px; }
+.form-pasien { gap: 24px; }
+
+.kotak-input { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.teks-label { font-weight: 700; }
+
+.bingkai-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 62px;
+  padding: 0 18px;
+  border: 1px solid var(--garis);
+  border-radius: 18px;
+  background: var(--putih);
+}
+
+.bingkai-input input,
+.bingkai-input select {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--teks);
+}
+
+.kartu-info { margin-top: 24px; padding: 24px; }
+
+.pil-info {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(43, 182, 115, 0.12);
+  color: var(--hijau-tua);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.daftar-info { margin: 18px 0 0; padding-left: 18px; }
+
+.susunan-statistik { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 28px; }
+
+.kartu-statistik {
+  padding: 24px;
+  border-radius: 24px;
+  color: var(--putih);
+  background: linear-gradient(135deg, rgba(46, 134, 222, 0.96), rgba(43, 182, 115, 0.88));
+}
+
+.kartu-statistik span,
+.kartu-statistik p { color: rgba(255, 255, 255, 0.84); }
+
+.kartu-statistik strong {
+  margin: 10px 0 8px;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+.wadah-antrian { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.kartu-pasien { overflow: hidden; padding: 0; }
+
+.kepala-kartu-pasien {
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 22px;
+  background: #f5f8fc;
+  border-bottom: 1px solid rgba(24, 59, 86, 0.08);
+}
+
+.nama-pasien { margin: 14px 0 0; font-size: 1.05rem; font-weight: 800; color: #0f2740; }
+.nomor-antrian { display: block; font-size: 3rem; font-weight: 800; line-height: 1; color: #3c7cff; }
+
+.kode-pasien {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6ca8ff, #4f7ff0);
+  color: var(--putih);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.isi-kartu-pasien {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 22px;
+}
+
+.baris-info-pasien { gap: 12px; }
+.baris-info-pasien p { margin: 0; color: #54708b; font-size: 0.98rem; }
+.ikon-info-pasien { width: 18px; text-align: center; color: #6b7d90; }
+.ikon-hijau { color: var(--hijau); }
+.nilai-tebal { font-weight: 800; color: #23415f; }
+
+.wadah-qr {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.gambar-qr {
+  width: 110px;
+  height: 110px;
+  display: block;
+  padding: 8px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(24, 59, 86, 0.08);
+}
+
+.aksi-kartu {
+  padding: 14px 22px;
+  border-top: 1px solid rgba(24, 59, 86, 0.08);
+}
+
+.tombol-aksi { min-height: 46px; flex: 1; padding: 0 18px; }
+.tombol-edit { color: #20364f; background: #edf1f7; }
+.tombol-hapus { color: #ff4f54; background: #fdecee; }
+
+@media (max-width: 1080px) {
+  .isi-hero,
+  .susunan-statistik,
+  .wadah-antrian { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .wadah-situs { width: min(100% - 20px, 100%); }
+  .tombol-menu { display: block; }
+
+  .menu-nav {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: var(--bayangan);
+  }
+
+  .menu-nav.terbuka { display: flex; }
+  .sorot-dokter, .bingkai-foto-hero, .foto-hero { min-height: 420px; }
+  .profil-dokter { top: 18px; right: 18px; width: 220px; }
+  .teks-hero h1 { font-size: 2.4rem; }
+  .panel-formulir-penuh { padding: 24px; }
+  .kotak-input,
+  .isi-kartu-pasien { grid-template-columns: 1fr; }
+
+  .wadah-qr { justify-content: flex-start; }
+}
