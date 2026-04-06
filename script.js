@@ -1,5 +1,6 @@
 // Array 
 const dataPasien = [];
+let indexEdit = null;
 
 // 
 const form = document.getElementById("formPasien");
@@ -15,10 +16,50 @@ const nav = document.getElementById("navLinks");
 const formatTanggal = t => new Date(t).toLocaleDateString("id-ID",{day:"2-digit",month:"long",year:"numeric"});
 const formatJam = w => w.toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
 
-// Function
+// STATUS ANTRIAN
+const STATUSES = [
+  { key: "menunggu",  label: "🕐 Menunggu",                      cls: "status-menunggu"  },
+  { key: "dipanggil", label: "📢 Dipanggil",                     cls: "status-dipanggil" },
+  { key: "telat",     label: "😅 Datang lagi esok hari (telat)", cls: "status-telat"     },
+  { key: "selesai",   label: "✅ Selesai",                        cls: "status-selesai"   },
+];
+
+function getStatusIdx(idPasien) {
+  return parseInt(localStorage.getItem("status_" + idPasien) || "0");
+}
+
+function setStatusIdx(idPasien, idx) {
+  localStorage.setItem("status_" + idPasien, idx);
+}
+
+function buatBadgeStatus(idPasien) {
+  const btn = document.createElement("button");
+  btn.className = "status-badge";
+
+  function render() {
+    const s = STATUSES[getStatusIdx(idPasien)];
+    btn.className = "status-badge " + s.cls;
+    btn.textContent = s.label;
+  }
+
+  btn.addEventListener("click", e => {
+    e.stopPropagation(); 
+    const next = (getStatusIdx(idPasien) + 1) % STATUSES.length;
+    setStatusIdx(idPasien, next);
+    render();
+  });
+
+  render();
+  return btn;
+}
+
+// BUATTT QR ( JGN DI UBAHH )
 const buatQr = p => {
-  const isiQr = `${p.idPasien} | ${p.nama} | ${p.nomorAntrian} | ${p.rumahSakit} | ${p.dokter} | ${p.tanggalBerobat}`;
-  return "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=" + encodeURIComponent(isiQr);
+  const isiQr =
+    `${p.idPasien} || ${p.nama} || ${p.nomorAntrian} || ${p.rumahSakit} || ${p.dokter} || ${p.tanggalBerobat}`
+
+  return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&ecc=H&data=" 
+         + encodeURIComponent(isiQr);
 };
 
 // CARDDDD
@@ -36,6 +77,10 @@ function buatCard(p,i){
   };
 
   for(const k in isi) card.querySelector(k).textContent = isi[k];
+
+  // BADGE STATUS 
+  const namaPasienEl = card.querySelector(".nama-pasien");
+  namaPasienEl.after(buatBadgeStatus(p.idPasien));
 
   // QR
   card.querySelector(".gambar-qr").src = buatQr(p);
@@ -59,23 +104,37 @@ function tampilkanData(){
 }
 
 // Event DOM 
-form.addEventListener("submit",e=>{
+form.addEventListener("submit", e => {
   e.preventDefault();
 
-  // Object pasien 
   const pasien = {
-    nama: nama.value.trim().toUpperCase(), // Object String
+    nama: nama.value.trim().toUpperCase(),
     rumahSakit: rs.value,
     dokter: dokter.value,
     tanggalBerobat: tanggal.value,
-    idPasien:"MDC-"+Math.floor(Math.random()*90000+10000), // Object Math
-    nomorAntrian:"A-"+String(dataPasien.length+1).padStart(3,"0"), // Object String
-    waktuDaftar:new Date() // Object Date
+    idPasien: "MDC-" + Math.floor(Math.random()*90000+10000),
+    waktuDaftar: new Date()
   };
 
-  dataPasien.push(pasien);
+  if(indexEdit !== null){
+
+    // UPDATE DATA
+    pasien.nomorAntrian = dataPasien[indexEdit].nomorAntrian;
+    pasien.idPasien = dataPasien[indexEdit].idPasien;
+    pasien.waktuDaftar = dataPasien[indexEdit].waktuDaftar;
+
+    dataPasien[indexEdit] = pasien;
+    indexEdit = null;
+    alert("Data berhasil diupdate!");
+  } else {
+
+    // TAMBAH DATA
+    pasien.nomorAntrian = "A-" + String(dataPasien.length+1).padStart(3,"0");
+    dataPasien.push(pasien);
+    alert("Pendaftaran berhasil! Nomor antrian: " + pasien.nomorAntrian);
+  }
+
   tampilkanData();
-  alert("Pendaftaran berhasil! Nomor antrian: "+pasien.nomorAntrian); //alert()
   form.reset();
 });
 
@@ -89,29 +148,30 @@ list.addEventListener("click",e=>{
 
   const p = dataPasien[i];
 
-  // prompt() EDITTT DATAAAAAAAAAAAA
+  //  EDITTT DATAAAAAAAAAAAA
   if(btn.classList.contains("tombol-edit")){
-    const namaBaru = prompt("Edit nama pasien:",p.nama);
-    const rsBaru = namaBaru===null?null:prompt("Edit rumah sakit / klinik:",p.rumahSakit);
-    const dokterBaru = rsBaru===null?null:prompt("Edit dokter:",p.dokter);
-    const tanggalBaru = dokterBaru===null?null:prompt("Edit tanggal berobat:",p.tanggalBerobat);
+    const p = dataPasien[i];
 
-    if([namaBaru,rsBaru,dokterBaru,tanggalBaru].includes(null)) return;
-    if(!namaBaru.trim()||!rsBaru.trim()||!dokterBaru.trim()||!tanggalBaru.trim()) return alert("Semua data edit harus diisi.");
+    nama.value = p.nama;
+    rs.value = p.rumahSakit;
+    dokter.value = p.dokter;
+    tanggal.value = p.tanggalBerobat;
 
-    Object.assign(p,{
-      nama:namaBaru.trim().toUpperCase(), // Object String
-      rumahSakit:rsBaru.trim(),
-      dokter:dokterBaru.trim(),
-      tanggalBerobat:tanggalBaru.trim()
+    indexEdit = i;
+
+    form.scrollIntoView({ 
+      behavior: "smooth",
+      block: "start"
     });
-
-    tampilkanData();
+    nama.focus();
   }
 
   //confirm() sebelum hapus
   if(btn.classList.contains("tombol-hapus")){
     if(!confirm("Yakin hapus data pasien ini?")) return; // Kotak Dialog confirm()
+
+    // Hapus status dari localStorage sekalian
+    localStorage.removeItem("status_" + dataPasien[i].idPasien);
 
     dataPasien.splice(i,1);
 
